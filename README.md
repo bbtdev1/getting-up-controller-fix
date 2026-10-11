@@ -19,7 +19,7 @@ The repository does **not** contain the original `binds_pc.cfg` or any other fil
 ## Requirements
 
 - A legitimate installation of _Marc Eckō's Getting Up: Contents Under Pressure_
-- An Xbox 360 or compatible X-Input controller
+- A supported controller with an available patch in this repository.
 
 ## Installation
 
@@ -95,7 +95,7 @@ Game version (steam build id):
 
 If you would like support for another controller, feel free to [open an issue](../../issues) describing the controller and, if possible, providing its button and axis mapping.
 
-Pull requests adding support for additional controllers are also welcome, see the [contributing guide](CONTRIBUTING.md)
+Pull requests adding support for additional controllers are also welcome, see the [contributing guide](CONTRIBUTING.md).
 
 ## Disclaimer
 
