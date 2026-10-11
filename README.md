@@ -1,13 +1,17 @@
-# Marc Eckō's Getting Up — Xbox / X-Input Controller Fix
+# Marc Eckō's Getting Up — Controller Fix
 
-Fixes the default controller bindings for **Marc Eckō's Getting Up: Contents Under Pressure** when using an Xbox 360 / X-Input controller.
+Fixes the default controller bindings for **Marc Eckō's Getting Up: Contents Under Pressure** by applying controller-specific patches to `engine/binds_pc.cfg`.
+
+I loved this game when I was younger, and I couldn't just let people who want to revisit it be disappointed by modern controller compatibility issues and give up on playing it because it doesn't work out of the box on Steam with newer controllers.
+
+My goal was to make it as easy as possible for anyone to enjoy the game again with a simple patch, without having to install a mod or having to modify files manually.
 
 ## What this project contains
 
 This project provides:
 
 - install & uninstall scripts;
-- patches for `engine/binds_pc.cfg`;
+- controller-specific patches for `engine/binds_pc.cfg`;
 - no game files.
 
 The repository does **not** contain the original `binds_pc.cfg` or any other files from the game.
@@ -28,13 +32,30 @@ The repository does **not** contain the original `binds_pc.cfg` or any other fil
 ```
 
 4. Copy or enter the path to your game installation when prompted, it should look like something like this: `C:\Program Files\Steam\steamapps\common\Marc Ecko's Getting Up 2`
-5. Start the game and test the controller.
+5. Select the controller profile you want to install.
+6. Start the game and test the controller.
 
 The installer creates a backup of the original configuration before modifying it:
 
 ```text
 engine\binds_pc.cfg.backup
 ```
+
+## Supported controllers
+
+The installer is designed to support multiple controller profiles. Each profile has its own patch and expected SHA-256 checksum.
+
+Currently available:
+
+- Xbox 360 / X-Input
+
+## Switching controllers
+
+The installer does not stack controller patches.
+
+When switching from one supported controller profile to another, it first restores the verified original configuration from the backup and then applies the selected controller patch.
+
+This prevents one controller patch from being applied on top of another.
 
 ## Troubleshooting
 
@@ -72,7 +93,9 @@ Game version (steam build id):
 
 ### Want support for another controller?
 
-If you would like to add support for another controller, feel free to [open an issue](../../issues) describing the controller and, if possible, providing its button/axis mapping.
+If you would like support for another controller, feel free to [open an issue](../../issues) describing the controller and, if possible, providing its button and axis mapping.
+
+Pull requests adding support for additional controllers are also welcome, see the [contributing guide](CONTRIBUTING.md)
 
 ## Disclaimer
 
