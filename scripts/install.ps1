@@ -1,26 +1,21 @@
 $ErrorActionPreference = "Stop"
 
-# Marc Eckō's Getting Up — Controller Fix Installer
+# Marc Ecko's Getting Up - Controller Fix Installer
 # The installer only modifies binds_pc.cfg when its exact contents are known.
 
-$Controllers = @(
-    [PSCustomObject]@{
+# Script folder (with a fallback if $PSScriptRoot is empty)
+$ScriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+
+$xbox360 = [PSCustomObject]@{
         Id           = "xbox360"
         Name         = "Xbox 360 / X-Input"
-        Patch        = Join-Path $PSScriptRoot "..\patches\xbox360.patch"
+        Patch        = Join-Path $ScriptDir "..\patches\xbox360.patch"
         OriginalHash = "8149406edc97290747d22cf5eeebb95c44e7940d1313a83e53be47a0c16d7e5d"
         PatchedHash  = "82d2646b306269df3754d77a66485786c81a821bcb6bc2041aa74c62f17bfefb"
     }
 
-    # Add additional controller profiles here when their patches are available.
-    # Example:
-    # [PSCustomObject]@{
-    #     Id           = "ps5"
-    #     Name         = "PlayStation 5 / DualSense"
-    #     Patch        = Join-Path $PSScriptRoot "..\patch\ps5-dualsense.patch"
-    #     OriginalHash = "..."
-    #     PatchedHash  = "..."
-    # }
+$Controllers = @(
+    $xbox360
 )
 
 function Get-Sha256([string]$Path) {
@@ -116,8 +111,8 @@ function Get-ControllerByHash([string]$Hash) {
 }
 
 function Show-Menu([string]$CurrentName) {
-    Clear-Host
-    Write-Host "Marc Eckō's Getting Up — Controller Fix"
+    Write-Host ""
+    Write-Host "Marc Ecko's Getting Up - Controller Fix"
     Write-Host "========================================"
     Write-Host ""
     Write-Host "Current configuration: $CurrentName"
@@ -137,7 +132,10 @@ function Show-Menu([string]$CurrentName) {
     Write-Host ""
 }
 
-$GamePath = Read-Host "Path to your Marc Eckō's Getting Up installation"
+do {
+    $GamePath = (Read-Host "Path to your Marc Ecko's Getting Up installation").Trim().Trim('"')
+} while ([string]::IsNullOrWhiteSpace($GamePath))
+
 $BindsFile = Join-Path $GamePath "engine\binds_pc.cfg"
 $BackupFile = "$BindsFile.backup"
 
@@ -162,7 +160,7 @@ else {
 }
 
 Show-Menu $currentName
-$selection = Read-Host "Selection"
+$selection = (Read-Host "Selection").Trim()
 
 if ($selection -match '^[Qq]$') {
     Write-Host "No changes made."
@@ -179,6 +177,10 @@ if ($index -lt 0 -or $index -ge $Controllers.Count) {
 }
 
 $target = $Controllers[$index]
+
+if ($null -eq $target -or [string]::IsNullOrWhiteSpace($target.Patch)) {
+    throw "No valid controller profile selected."
+}
 
 if (-not (Test-Path -LiteralPath $target.Patch -PathType Leaf)) {
     throw "The patch for '$($target.Name)' is not available yet."
