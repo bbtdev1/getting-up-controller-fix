@@ -7,7 +7,7 @@ $Controllers = @(
     [PSCustomObject]@{
         Id           = "xbox360"
         Name         = "Xbox 360 / X-Input"
-        Patch        = Join-Path $PSScriptRoot "..\patch\xbox360.patch"
+        Patch        = Join-Path $PSScriptRoot "..\patches\xbox360.patch"
         OriginalHash = "8149406edc97290747d22cf5eeebb95c44e7940d1313a83e53be47a0c16d7e5d"
         PatchedHash  = "82d2646b306269df3754d77a66485786c81a821bcb6bc2041aa74c62f17bfefb"
     }

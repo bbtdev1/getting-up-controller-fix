@@ -110,3 +110,7 @@ The game itself is not included in this repository.
 The original files belonging to _Marc Eckō's Getting Up: Contents Under Pressure_ are not part of this project and are not licensed under the Unlicense.
 
 The Unlicense applies only to the original material contained in this repository.
+
+## Credits
+
+- LinoleumKnife86 for the xbox 360 bindings available on this [steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=237505853).
